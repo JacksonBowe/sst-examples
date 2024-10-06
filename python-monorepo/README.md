@@ -5,13 +5,13 @@ This project is a monorepo that utilizes Python UV as the dependency manager, ha
 ### Key Features
 
 -   **Monorepo** architecture with multiple Python Lambda functions
--   Used **Python UV** for managing dependencies across functions
+-   Uses **Python UV** for managing dependencies across functions
 -   **Lambda Layers** are used for external libraries, as the default bundling behavior is disabled for Python functions
 -   Works for both **local development** and **deployed environments**
 
 ### Disclaimer
 
-This template disables the default bundling behavior on Python functions. WHen external libraries are needed, **Lambda Layers** are utilized to package dependencies.
+This template disables the default bundling behavior on Python functions. When external libraries are needed, **Lambda Layers** are utilized to package dependencies.
 
 ---
 
@@ -44,7 +44,7 @@ This template disables the default bundling behavior on Python functions. WHen e
 
     - Linux/MacOS
 
-        ```
+        ```sh
         source .venv\bin\activate
         ```
 
@@ -74,13 +74,20 @@ This template disables the default bundling behavior on Python functions. WHen e
     npm run dev
     ```
 
-6. **Deploy to production**:
+6. **Testing**: This project has `pytest` pre-installed. Run it with
+
+    ```sh
+    pytest
+    ```
+
+7. **Deploy to production**:
 
     ```sh
     npm run deploy
     ```
 
-7. **Cleanup**:
+8. **Cleanup**:
+
     ```sh
     npm run remove:local
     npm run remove:prod
