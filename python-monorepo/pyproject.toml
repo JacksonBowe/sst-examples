@@ -1,0 +1,20 @@
+[project]
+name = "python-uv"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.3.3",
+    "core",
+    "aws-lambda-powertools[all]>=3.0.0",
+]
+
+
+[tool.uv.workspace]
+members = ["packages/functions", "packages/core"]
+
+[tool.uv.sources]
+core = { workspace = true }

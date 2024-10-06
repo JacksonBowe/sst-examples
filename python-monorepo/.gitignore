@@ -1,0 +1,18 @@
+# dependencies
+node_modules
+.venv
+.pytest_cache
+.ruff_cache
+
+# sst
+.sst
+.build
+
+# opennext
+.open-next
+
+# misc
+.DS_Store
+
+# local env files
+.env*.local
