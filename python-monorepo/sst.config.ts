@@ -11,6 +11,7 @@ export default {
 	},
 	stacks(app) {
 		app.setDefaultFunctionProps({
+			// The copyFiles prop is key here. This is what makes everything work when deployed
 			copyFiles: [{ from: "packages/core/src", to: "." }],
 			runtime: "python3.12",
 			python: {

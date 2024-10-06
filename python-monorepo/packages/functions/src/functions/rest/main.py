@@ -1,8 +1,9 @@
-from core import hello
+import json
+
+from core.controllers import UserController
 
 
 def handler(event, context):
-    hello()
-    print("Hello from API")
-
-    return {"statusCode": 200, "body": "Hello from API!"}
+    users = UserController.get_users()
+    print(users)
+    return {"statusCode": 200, "body": json.dumps(users)}
