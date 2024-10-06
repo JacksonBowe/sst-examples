@@ -3,9 +3,12 @@ name = "python-monorepo"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-    "core",
+requires-python = ">=3.12"
+dependencies = ["core"]
+
+[tool.uv]
+dev-dependencies = [
+    "aws-lambda-powertools[all]>=3.0.0",
 ]
 
 [tool.uv.workspace]

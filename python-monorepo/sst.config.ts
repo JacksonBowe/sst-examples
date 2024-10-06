@@ -1,10 +1,11 @@
 import { SSTConfig } from "sst";
+import { LambdaLayers } from "./stacks/LambdaLayers";
 import { API } from "./stacks/Api";
 
 export default {
 	config(_input) {
 		return {
-			name: "python-uv",
+			name: "python-mono",
 			region: "ap-southeast-2",
 		};
 	},
@@ -15,13 +16,9 @@ export default {
 			python: {
 				noDocker: true,
 			},
-			environment: {
-				// ...(app.local && {
-				// 	PYTHONPATH: [path.resolve("./packages")].join(";"),
-				// }),
-			},
+			environment: {},
 		});
 
-		app.stack(API);
+		app.stack(LambdaLayers).stack(API);
 	},
 } satisfies SSTConfig;

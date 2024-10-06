@@ -3,7 +3,7 @@ import { Function } from "sst/constructs";
 
 export function API({ stack }: StackContext) {
 	new Function(stack, "MyFunction", {
-		handler: "packages/functions/src/functions/main.handler",
+		handler: "packages/functions/src/functions/scripts/seed_database.handler",
 	});
 
 	const api = new Api(stack, "api", {
@@ -11,11 +11,11 @@ export function API({ stack }: StackContext) {
 			function: {},
 		},
 		routes: {
-			$default: "packages/functions/src/functions/main.handler",
+			"ANY /{proxy+}": "packages/functions/src/functions/rest/main.handler",
 		},
 	});
 
-	// stack.addOutputs({
-	// 	ApiEndpoint: api.url,
-	// });
+	stack.addOutputs({
+		ApiEndpoint: api.url,
+	});
 }

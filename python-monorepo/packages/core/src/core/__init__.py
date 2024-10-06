@@ -1,2 +1,3 @@
 def hello() -> str:
-    return "Hello from core!"
+    print("Hello from Core")
+    return
