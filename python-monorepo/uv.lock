@@ -9,7 +9,7 @@ resolution-markers = [
 members = [
     "core",
     "functions",
-    "python-uv",
+    "python-mono",
 ]
 
 [[package]]
@@ -153,7 +153,7 @@ wheels = [
 [[package]]
 name = "core"
 version = "0.1.0"
-source = { editable = "packages/core" }
+source = { virtual = "packages/core" }
 
 [[package]]
 name = "cryptography"
@@ -202,7 +202,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "core", editable = "packages/core" }]
+requires-dist = [{ name = "core", virtual = "packages/core" }]
 
 [[package]]
 name = "iniconfig"
@@ -347,23 +347,25 @@ wheels = [
 ]
 
 [[package]]
-name = "python-uv"
+name = "python-mono"
 version = "0.1.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "core" },
+]
 
 [package.dev-dependencies]
 dev = [
     { name = "aws-lambda-powertools", extra = ["all"] },
-    { name = "core" },
     { name = "pytest" },
 ]
 
 [package.metadata]
+requires-dist = [{ name = "core", virtual = "packages/core" }]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "aws-lambda-powertools", extras = ["all"], specifier = ">=3.0.0" },
-    { name = "core", editable = "packages/core" },
     { name = "pytest", specifier = ">=8.3.3" },
 ]
 

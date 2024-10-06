@@ -1,16 +1,15 @@
 [project]
-name = "python-uv"
+name = "python-mono"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
+dependencies = [
+    "core",
+]
 
 [tool.uv]
-dev-dependencies = [
-    "pytest>=8.3.3",
-    "core",
-    "aws-lambda-powertools[all]>=3.0.0",
-]
+dev-dependencies = ["pytest>=8.3.3", "aws-lambda-powertools[all]>=3.0.0"]
 
 
 [tool.uv.workspace]
