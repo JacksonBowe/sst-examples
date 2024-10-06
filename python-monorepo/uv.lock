@@ -1,48 +1,30 @@
 version = 1
-requires-python = ">=3.12"
-resolution-markers = [
-    "python_full_version < '3.13'",
-    "python_full_version >= '3.13'",
-]
+requires-python = ">=3.11"
 
 [manifest]
 members = [
     "core",
     "functions",
-    "python-mono",
+    "python-monorepo",
 ]
 
 [[package]]
 name = "core"
 version = "0.1.0"
-source = { virtual = "packages/core" }
+source = { editable = "packages/core" }
 
 [[package]]
 name = "functions"
 version = "0.1.0"
-source = { virtual = "packages/functions" }
-dependencies = [
-    { name = "core" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "core", virtual = "packages/core" }]
+source = { editable = "packages/functions" }
 
 [[package]]
-name = "python-mono"
+name = "python-monorepo"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "core" },
 ]
 
-[package.dev-dependencies]
-dev = [
-    { name = "core" },
-]
-
 [package.metadata]
-requires-dist = [{ name = "core", virtual = "packages/core" }]
-
-[package.metadata.requires-dev]
-dev = [{ name = "core", virtual = "packages/core" }]
+requires-dist = [{ name = "core", editable = "packages/core" }]

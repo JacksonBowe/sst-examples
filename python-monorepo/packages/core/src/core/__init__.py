@@ -1,2 +1,2 @@
-def sum(a, b) -> None:
-    return a + b
+def hello() -> str:
+    return "Hello from core!"

@@ -1,5 +1,5 @@
 {
-    "name": "python-mono",
+    "name": "python-uv",
     "version": "0.0.0",
     "private": true,
     "type": "module",
@@ -14,9 +14,9 @@
         "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
-        "sst": "2.34.5",
-        "aws-cdk-lib": "2.101.1",
-        "constructs": "10.2.69",
+        "sst": "2.43.5",
+        "aws-cdk-lib": "2.142.1",
+        "constructs": "10.3.0",
         "typescript": "^5.6.2",
         "@tsconfig/node18": "^18.2.4"
     },
