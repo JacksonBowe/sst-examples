@@ -1,13 +1,10 @@
 import { SSTConfig } from "sst";
-import { LambdaLayers } from "./stacks/LambdaLayers";
 import { API } from "./stacks/Api";
-
-import path from "path";
 
 export default {
 	config(_input) {
 		return {
-			name: "python-mono",
+			name: "python-uv",
 			region: "ap-southeast-2",
 		};
 	},

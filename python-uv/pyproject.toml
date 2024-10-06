@@ -1,5 +1,5 @@
 [project]
-name = "python-mono"
+name = "python-uv"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -8,14 +8,8 @@ dependencies = [
     "core",
 ]
 
-[tool.uv]
-dev-dependencies = [
-    "core",
-]
-
-
 [tool.uv.workspace]
-members = ["packages/functions", "packages/core"]
+members = ["packages/core", "packages/functions"]
 
 [tool.uv.sources]
 core = { workspace = true }

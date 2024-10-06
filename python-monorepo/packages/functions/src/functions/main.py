@@ -1,6 +1,8 @@
+import os
 
 
-from core import sum
+print(os.getenv("PYTHONPATH"))
+
 
 print("HHHHHHHHHHHHHHHHHHHHHHHH")
 
