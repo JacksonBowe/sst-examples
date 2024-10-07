@@ -1,5 +1,6 @@
 import json
 
+import notes
 import users
 from aws_lambda_powertools.event_handler import (
     APIGatewayHttpResolver,
@@ -15,6 +16,7 @@ logger = Logger()
 
 app = APIGatewayHttpResolver(enable_validation=True)
 app.include_router(users.router)
+app.include_router(notes.router)
 
 
 @app.exception_handler(RequestValidationError)

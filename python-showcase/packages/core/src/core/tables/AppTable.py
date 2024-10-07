@@ -39,4 +39,15 @@ class Entities:
             return "A"
 
     class UserNote(BaseEntity):
-        pass
+        entityType: EntityTypes = EntityTypes.USER_NOTE
+        user_id: str
+        content: str
+
+        @property
+        def PK(self):
+            """The USER_NOTE entity is contained by the USER entity"""
+            return self.user_id
+
+        @property
+        def SK(self):
+            return self.entityId

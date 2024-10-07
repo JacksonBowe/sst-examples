@@ -2,11 +2,11 @@ import uuid
 from typing import List
 
 import boto3
-from boto3.dynamodb.conditions import Key
 from aws_lambda_powertools.event_handler.exceptions import (
     InternalServerError,
 )
 from aws_lambda_powertools.logging import Logger
+from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from core.tables import AppTable
@@ -15,11 +15,13 @@ ddb = boto3.resource("dynamodb")
 logger = Logger()
 
 
-def create_user(name: str) -> AppTable.Entities.User:
-    user = AppTable.Entities.User(entityId=str(uuid.uuid4()), name=name)
+def create_user_note(user_id: str, content: str) -> AppTable.Entities.UserNote:
+    user_note = AppTable.Entities.UserNote(
+        entityId=str(uuid.uuid4()), user_id=user_id, content=content
+    )
 
     try:
-        AppTable.table.put_item(Item=user.serialize())
+        AppTable.table.put_item(Item=user_note.serialize())
     except ClientError as e:
         logger.error(
             f"Error writing new user to dynamo: {e.response['Error']['Message']}"
@@ -28,21 +30,23 @@ def create_user(name: str) -> AppTable.Entities.User:
             f"Error putting item: {e.response['Error']['Message']}"
         )
 
-    return user
+    return user_note
 
 
-def get_users() -> List[AppTable.Entities.User]:
+def get_user_notes(user_id: str) -> List[AppTable.Entities.UserNote]:
     try:
+        # Querying with entityType as hash key and PK as sort key
         items = AppTable.table.query(
             IndexName=AppTable.Indexes.ITEMS_BY_TYPE.value,
             KeyConditionExpression=Key("entityType").eq(
-                AppTable.EntityTypes.USER.value
-            ),
+                AppTable.EntityTypes.USER_NOTE.value
+            )
+            & Key("PK").eq(user_id),
         ).get("Items", [])
     except ClientError as e:
-        logger.error(f"Error querying items by type: {e.response['Error']['Message']}")
+        logger.error(f"Error querying user notes: {e.response['Error']['Message']}")
         raise InternalServerError(
-            f"Error querying items by type: {e.response['Error']['Message']}"
+            f"Error querying user notes: {e.response['Error']['Message']}"
         )
 
-    return [AppTable.Entities.User.deserialize(item) for item in items]
+    return [AppTable.Entities.UserNote.deserialize(item) for item in items]
