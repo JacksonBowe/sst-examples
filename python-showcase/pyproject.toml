@@ -1,0 +1,19 @@
+[project]
+name = "python-showcase"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["core"]
+
+[tool.uv]
+dev-dependencies = [
+    "aws-lambda-powertools[all]>=3.0.0",
+    "pytest>=8.3.3",
+]
+
+[tool.uv.workspace]
+members = ["packages/core", "packages/functions"]
+
+[tool.uv.sources]
+core = { workspace = true }
