@@ -2,6 +2,7 @@ import { SSTConfig } from "sst";
 import { LambdaLayers } from "./stacks/LambdaLayers";
 import { Storage } from "./stacks/Storage";
 import { API } from "./stacks/Api";
+import { Bus } from "./stacks/Bus";
 
 export default {
 	config(_input) {
@@ -24,6 +25,6 @@ export default {
 			environment: {},
 		});
 
-		app.stack(LambdaLayers).stack(Storage).stack(API);
+		app.stack(LambdaLayers).stack(Storage).stack(Bus).stack(API);
 	},
 } satisfies SSTConfig;

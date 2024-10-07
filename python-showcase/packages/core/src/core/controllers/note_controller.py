@@ -5,14 +5,25 @@ import boto3
 from aws_lambda_powertools.event_handler.exceptions import (
     InternalServerError,
 )
+from aws_lambda_powertools.utilities.parser import BaseModel
 from aws_lambda_powertools.logging import Logger
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from core.tables import AppTable
+from core.events import Event
 
 ddb = boto3.resource("dynamodb")
 logger = Logger()
+
+
+class Events:
+    class NoteCreated(Event):
+        event_name = "note.created"
+
+        class Properties(BaseModel):
+            user_id: str
+            timestamp: str
 
 
 def create_user_note(user_id: str, content: str) -> AppTable.Entities.UserNote:
@@ -29,6 +40,9 @@ def create_user_note(user_id: str, content: str) -> AppTable.Entities.UserNote:
         raise InternalServerError(
             f"Error putting item: {e.response['Error']['Message']}"
         )
+
+    # Send an event to the Event Bus
+    Events.NoteCreated.publish({"user_id": user_id, "timestamp": "some timestamp"})
 
     return user_note
 
