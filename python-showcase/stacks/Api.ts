@@ -16,6 +16,10 @@ export function API({ stack }: StackContext) {
 		defaults: {
 			function: {
 				bind: [appTable, bus],
+				environment: {
+					SST_TABLE_TABLENAME_APPTABLE: appTable.tableName,
+					SST_EVENTBUS_EVENTBUSNAME_BUS: bus.eventBusName,
+				},
 			},
 		},
 		routes: {
