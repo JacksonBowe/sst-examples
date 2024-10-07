@@ -4,11 +4,12 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["core"]
+dependencies = ["core", "functions"]
 
 [tool.uv]
 dev-dependencies = [
     "aws-lambda-powertools[all]>=3.0.0",
+    "moto>=5.0.16",
     "pytest>=8.3.3",
 ]
 
@@ -17,3 +18,12 @@ members = ["packages/core", "packages/functions"]
 
 [tool.uv.sources]
 core = { workspace = true }
+functions = { workspace = true }
+
+[tool.pytest.ini_options]
+norecursedirs = "packages/functions/layers node_modules .*"
+pythonpath = ["packages/core/src", "packages/functions/src"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]

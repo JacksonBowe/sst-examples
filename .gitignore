@@ -4,6 +4,16 @@ python-pdm
 
 test
 
-mode_modules
+node_modules
 
 python-monorepo-munted2
+
+.venv
+
+.sst
+
+.pytest_cache
+
+.ruff_cache
+
+__pycache__

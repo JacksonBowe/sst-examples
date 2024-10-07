@@ -1,7 +1,14 @@
+import os
 import json
 
-import notes
-import users
+# This is because Python was created by people with brain rot
+if os.getenv("PYTEST"):
+    from . import notes, users  # When Python is running "normally"
+else:
+    # When Python is being invoked via SST
+    import notes
+    import users
+
 from aws_lambda_powertools.event_handler import (
     APIGatewayHttpResolver,
     Response,
