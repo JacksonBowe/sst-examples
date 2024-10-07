@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import json
 from abc import ABC, abstractmethod
 from typing import ClassVar, Self
 
 from aws_lambda_powertools.utilities.parser import BaseModel
+
 from core.utils import collapse_dict
 
 
@@ -70,9 +72,16 @@ class SimpleEntity(BaseModel, ABC):
             # Start the recursive update from the current instance
             self._update_attribute(self, attribute_parts, value)
 
-    def serialize(self) -> dict:
-        raw = self.model_dump(exclude_none=True)
-        [raw.update({key: getattr(self, key) for key in self._primary_index_keys})]
+    def serialize(self) -> str:
+        # Step 1: Get the JSON string representation of the model
+        json_data = self.model_dump_json(exclude_none=True)
+
+        # Step 2: Convert the JSON string back to a Python dictionary
+        raw: dict = json.loads(json_data)
+
+        # Step 3: Update the dictionary with the _primary_index_keys
+        raw.update({key: getattr(self, key) for key in self._primary_index_keys})
+
         return raw
 
     @classmethod

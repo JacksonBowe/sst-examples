@@ -1,5 +1,6 @@
 import { SSTConfig } from "sst";
 import { LambdaLayers } from "./stacks/LambdaLayers";
+import { Storage } from "./stacks/Storage";
 import { API } from "./stacks/Api";
 
 export default {
@@ -10,6 +11,9 @@ export default {
 		};
 	},
 	stacks(app) {
+		// TODO: Change this when doing production deploy for realsies
+		app.setDefaultRemovalPolicy("destroy");
+
 		app.setDefaultFunctionProps({
 			// The copyFiles prop is key here. This is what makes everything work when deployed
 			copyFiles: [{ from: "packages/core/src", to: "." }],
@@ -20,6 +24,6 @@ export default {
 			environment: {},
 		});
 
-		app.stack(LambdaLayers).stack(API);
+		app.stack(LambdaLayers).stack(Storage).stack(API);
 	},
 } satisfies SSTConfig;
