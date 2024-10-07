@@ -5,13 +5,13 @@ import boto3
 from aws_lambda_powertools.event_handler.exceptions import (
     InternalServerError,
 )
-from aws_lambda_powertools.utilities.parser import BaseModel
 from aws_lambda_powertools.logging import Logger
+from aws_lambda_powertools.utilities.parser import BaseModel
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from core.tables import AppTable
 from core.events import Event
+from core.tables import AppTable
 
 ddb = boto3.resource("dynamodb")
 logger = Logger()

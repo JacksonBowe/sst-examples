@@ -4,7 +4,7 @@ from pathlib import Path
 
 import boto3
 from aws_lambda_powertools import Logger
-from aws_lambda_powertools.utilities.parser import BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError
 
 logger = Logger()
 eb = boto3.client("events")
@@ -17,7 +17,7 @@ class Event:
         pass
 
     @classmethod
-    def publish(cls, data: dict = {}):
+    def publish(cls, data: dict):
         try:
             validated_data = cls.Properties(**data).model_dump_json()
             return eb.put_events(
@@ -33,5 +33,5 @@ class Event:
                 ]
             )
         except ValidationError as e:
-            print(e)
             logger.exception(f"Error publishing event '{cls.event_name}': {e}")
+            raise ValidationError(f"Failed to publish event '{cls.event_name}': {e}")
