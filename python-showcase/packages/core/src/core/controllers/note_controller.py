@@ -1,4 +1,6 @@
 import uuid
+import time
+from datetime import datetime, timezone
 from typing import List
 
 import boto3
@@ -23,7 +25,7 @@ class Events:
 
         class Properties(BaseModel):
             user_id: str
-            timestamp: str
+            timestamp: datetime
 
 
 def create_user_note(user_id: str, content: str) -> AppTable.Entities.UserNote:
@@ -42,7 +44,9 @@ def create_user_note(user_id: str, content: str) -> AppTable.Entities.UserNote:
         )
 
     # Send an event to the Event Bus
-    Events.NoteCreated.publish({"user_id": user_id, "timestamp": "some timestamp"})
+    Events.NoteCreated.publish(
+        {"user_id": user_id, "timestamp": datetime.now(timezone.utc)}
+    )
 
     return user_note
 
